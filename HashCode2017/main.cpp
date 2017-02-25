@@ -35,9 +35,9 @@ int main() {
         tmp_cache_id, tmp_cache_latency,
         tmp_video_id, tmp_endpoint_id, tmp_request_number;
     
-    ifstream fin("kittens.in");
+    ifstream fin("videos_worth_spreading.in");
     //ifstream fin("input.in");
-    ofstream fout("kittens.out");
+    ofstream fout("videos_worth_spreading.out");
     fin>>VIDEOS>>ENDPOINTS>>REQUESTS>>CACHES>>CACHE_CAPACITY;
     ////////////// Answer Vars \\\\\\\\\\\\\\\\\
     
@@ -66,7 +66,7 @@ int main() {
 //    caches_latencies.resize(CACHES);
     
     vector<set<pair<int,int>>> caches_latencies;
-    caches_latencies.resize(CACHES);
+    caches_latencies.resize(ENDPOINTS);
     
     // Datacenter Latencies depending on endpoint
     vector<int> datacenter_latencies;
@@ -114,7 +114,6 @@ int main() {
     ///////////////////// Main Part \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     
     //for (set<pair<int,int>>::reverse_iterator it=caches_latencies.rbegin(); it!=caches_latencies.rend(); ++it){
-    
     for (int i=0; i<ENDPOINTS; i++) {
         set<pair<int,int>> tmp_set = rd_statistics[i];
         if (tmp_set.size() == 0) {
@@ -122,7 +121,6 @@ int main() {
         }
         for (set<pair<int,int>>::reverse_iterator it=tmp_set.rbegin(); it!=tmp_set.rend(); ++it) {
             pair<int, int> p = *it;
-            cout<<i<<"  "<<p.first<<"   "<<p.second<<endl;
             if (video_sizes[p.second] > CACHE_CAPACITY){
                 continue;
             }
@@ -167,7 +165,7 @@ int main() {
         }
     }
     
-    
+    cout<<"Done!"<<endl;
     
     
     return 0;
